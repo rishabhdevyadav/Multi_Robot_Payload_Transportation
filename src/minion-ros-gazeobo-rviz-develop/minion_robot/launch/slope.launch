@@ -1,0 +1,8 @@
+ <launch>  
+
+ 	<arg name="model" default="$(find minion_robot)/urdf/slope.urdf.xacro"/>
+    <param name="slope_description" command="$(find xacro)/xacro.py '$(arg model)'"/>
+    <node name="slope_spawn" pkg="gazebo_ros" type="spawn_model" output="screen" respawn="false"
+          args="-urdf -param slope_description -model slope" />
+
+</launch> 

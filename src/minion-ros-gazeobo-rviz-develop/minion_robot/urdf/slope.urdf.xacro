@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+
+<robot name="myfirst1" xmlns:xacro="http://www.ros.org/wiki/xacro">
+   <material name="green">
+    <color rgba="0 0.8 0 1"/>
+  </material>
+
+<link name="slope">
+   <inertial>
+     <origin xyz="4 0 2" rpy="0 0 0"/>
+     <mass value="10"/>
+     <inertia ixx="0.01"  ixy="0"  ixz="0" iyy="0.01" iyz="0" izz="0.01" /> 
+   </inertial>
+
+   <visual>
+     <origin xyz="4 0 1" rpy="0 0 0" />
+     <geometry>
+       <box size="2.5 2.5 0.01" />
+     </geometry>
+     <material name="Cyan">
+       <color rgba="0 1.0 1.0 1.0"/>
+     </material>
+   </visual>
+
+   <collision>
+    <origin xyz="4 0 1" rpy="0 0 0"/>
+    <geometry>
+       <box size="2.5 2.5 0.1" />
+     </geometry>
+     <surface>
+            <friction>
+              <ode>
+                <mu>1000000</mu>
+                <mu2>1000000</mu2>
+                <kp value="1000" />
+                <kd value="100" />
+              </ode>
+            </friction>
+          </surface>
+   </collision>
+ </link>
+
+  <gazebo reference="slope">
+    <material>Gazebo/Red</material>
+ </gazebo>
+
+</robot>

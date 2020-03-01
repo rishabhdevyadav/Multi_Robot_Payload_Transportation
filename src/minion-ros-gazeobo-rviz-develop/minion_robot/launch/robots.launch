@@ -1,0 +1,60 @@
+ <launch>  
+
+	<include file="$(find minion_robot)/launch/minion_with_ID.launch">
+      <arg name="robotID" value="0" />
+      <arg name="x" value="0" />
+      <arg name="y" value="1" />
+  </include>
+  <include file="$(find minion_robot)/launch/minion_with_ID.launch">
+      <arg name="robotID" value="1" />
+      <arg name="x" value="0" />
+      <arg name="y" value="-1" />
+  </include>
+  <include file="$(find minion_robot)/launch/minion_with_ID.launch">
+      <arg name="robotID" value="2" />
+      <arg name="x" value="1.5" />
+      <arg name="y" value="0" />
+  </include>
+<!--   <include file="$(find minion_robot)/launch/minion_with_ID.launch">
+      <arg name="robotID" value="3" />
+      <arg name="x" value="0.5" />
+      <arg name="y" value="1.5" />
+  </include> -->
+
+
+
+<!--   <include file="$(find minion_robot)/launch/minion_with_ID.launch">
+      <arg name="robotID" value="0" />
+      <arg name="x" value="0" />
+      <arg name="y" value="4" />
+  </include>
+  <include file="$(find minion_robot)/launch/minion_with_ID.launch">
+      <arg name="robotID" value="1" />
+      <arg name="x" value="0" />
+      <arg name="y" value="5" />
+  </include>
+    <include file="$(find minion_robot)/launch/minion_with_ID.launch">
+      <arg name="robotID" value="2" />
+      <arg name="x" value="0" />
+      <arg name="y" value="6" />
+  </include> -->
+
+
+
+
+<!-- minion_2 is leader and minion_1 follower -->
+<!--  <node ns="minion_1" name="Formation" pkg="minion_robot" type="lf_bio.py" output="screen" >
+    <param name="leader" type="string" value="minion_2"/>
+    <param name="L_ijd" type="double" value="0.4"/>
+    <param name="phi_ijd" type="double" value="180"/> 
+
+    <param name="k1" type="double" value="1.5"/>
+    <param name="k2" type="double" value="1"/>
+    <param name="k3" type="double" value=".025"/>
+    <param name="A" type="double" value="15.0"/>
+    <param name="B" type="double" value="1.0"/>
+    <param name="D" type="double" value="1.0"/>
+ </node>
+ -->
+
+  </launch> 

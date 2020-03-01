@@ -1,0 +1,144 @@
+<?xml version="1.0"?>
+<robot name="myfirst2" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+<xacro:macro name="cuboid" params="name origin_xyz origin_rpy m l b h">
+  <link name="${name}">
+
+   <inertial>
+     <origin rpy="${origin_rpy}" xyz="${origin_xyz}" />
+     <mass value="${m}"/>
+     <inertia ixx="${m*((b*b) + (h*h))/12}"  ixy="0"  ixz="0" iyy="${m*((l*l) + (h*h))/12}" iyz="0" izz="${m*((b*b) + (l*l))/12}" /> 
+   </inertial>
+   <visual>
+     <origin rpy="${origin_rpy}" xyz="${origin_xyz}" />
+     <geometry>
+       <box size="${l} ${b} ${h}" />
+     </geometry>
+     <material name="Cyan">
+       <color rgba="0 1.0 1.0 1.0"/>
+     </material>
+   </visual>
+   <collision>
+    <origin rpy="${origin_rpy}" xyz="${origin_xyz}" />
+    <geometry>
+       <box size="${l} ${b} ${h}" />
+     </geometry>
+     <surface>
+            <friction>
+              <ode>
+                <mu>30</mu>
+                <mu2>30</mu2>
+                <kp value="1000" />
+                <kd value="1000" />
+              </ode>
+            </friction>
+          </surface>
+   </collision>
+  </link>
+
+ <gazebo reference="${name}">
+    <material>Gazebo/Road</material>
+ </gazebo>
+</xacro:macro>
+
+  <xacro:macro name="boxjoint" params="name type axis_xyz origin_rpy origin_xyz parent child">
+    <joint name="${name}" type="${type}">
+      <parent link="${parent}" />
+      <child link="${child}" />
+      <axis xyz="${axis_xyz}" /> 
+      <limit effort="1000.0" lower="-3.14" upper="3.14" velocity="0.5" />
+      <origin rpy="${origin_rpy}" xyz="${origin_xyz}" /> 
+    </joint>
+  </xacro:macro>
+
+
+<xacro:cuboid name="plate2" origin_xyz="6 0 2" origin_rpy="0 0 0" m="50000" l="8" b="0.9" h="0.01"/>
+<xacro:cuboid name="height2" origin_xyz="8 0 2" origin_rpy="0 0 0" m="5000" l="0.05" b=".9" h="0.01"/>
+<xacro:boxjoint name="joint2" type="fixed" axis_xyz="0 1 0" origin_rpy="0 0 0" origin_xyz="0 0 0.07" parent="height2" child="plate2"/> 
+
+
+</robot>
+
+
+
+
+<!-- <?xml version="1.0"?>
+<robot name="myfirst1" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+<xacro:macro name="cuboid" params="name origin_xyz origin_rpy m l b h">
+  <link name="${name}">
+
+   <inertial>
+     <origin rpy="${origin_rpy}" xyz="${origin_xyz}" />
+     <mass value="${m}"/>
+     <inertia ixx="${m*((b*b) + (h*h))/12}"  ixy="0"  ixz="0" iyy="${m*((l*l) + (h*h))/12}" iyz="0" izz="${m*((b*b) + (l*l))/12}" /> 
+   </inertial>
+   <visual>
+     <origin rpy="${origin_rpy}" xyz="${origin_xyz}" />
+     <geometry>
+       <box size="${l} ${b} ${h}" />
+     </geometry>
+     <material name="Cyan">
+       <color rgba="0 1.0 1.0 1.0"/>
+     </material>
+   </visual>
+   <collision>
+    <origin rpy="${origin_rpy}" xyz="${origin_xyz}" />
+    <geometry>
+       <box size="${l} ${b} ${h}" />
+     </geometry>
+     <surface>
+            <friction>
+              <ode>
+                <mu>1000000</mu>
+                <mu2>1000000</mu2>
+                <kp value="1000" />
+                <kd value="1000" />
+              </ode>
+            </friction>
+          </surface>
+   </collision>
+  </link>
+
+ <gazebo reference="${name}">
+    <material>Gazebo/Wood</material>
+ </gazebo>
+</xacro:macro>
+
+  <xacro:macro name="boxjoint" params="name type axis_xyz origin_rpy origin_xyz parent child">
+    <joint name="${name}" type="${type}">
+      <parent link="${parent}" />
+      <child link="${child}" />
+      <axis xyz="${axis_xyz}" /> 
+      <limit effort="1000.0" lower="-3.14" upper="3.14" velocity="0.5" />
+      <origin rpy="${origin_rpy}" xyz="${origin_xyz}" /> 
+    </joint>
+  </xacro:macro>
+
+
+<xacro:cuboid name="plate1" origin_xyz="5 1 2" origin_rpy="0 0 0" m="50" l="2.027" b="2.5" h="0.01"/>
+<xacro:cuboid name="heightcylinder" origin_xyz="5 1 2" origin_rpy="0 0 0" m="500" l="0.1" b="2" h="0.2"/>
+<xacro:cuboid name="heightram" origin_xyz="5 1 2" origin_rpy="0 0 0" m="500" l="0.05" b="2.5" h="0.2"/>
+
+<xacro:boxjoint name="plate_arm" type="fixed" axis_xyz="1 0 0" origin_rpy="0 0 0" origin_xyz="-0.5 0 0.3" parent="heightram" child="plate1"/> 
+
+  <joint name="pistonmoving" type="prismatic">
+     <parent link="heightcylinder"/>
+     <child link="heightram"/>
+     <provide_feedback>true</provide_feedback>
+     <limit effort="100000" lower="0" upper="10" velocity="0.01"/>
+     <origin xyz="0 0 "/>
+     <axis xyz="0 0 1"/>
+  </joint> 
+
+  <transmission name="pt">
+    <type>transmission_interface/SimpleTransmission</type>
+    <actuator name="ptptpt">
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+    <joint name="pistonmoving">
+      <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface> 
+    </joint>
+  </transmission>
+
+</robot> -->
